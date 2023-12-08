@@ -1,0 +1,31 @@
+from typing import Dict
+
+# Легковаговий об'єкт
+class Flyweight:
+    def operation(self, external_state):
+        pass
+
+# Конкретний легковаговий об'єкт
+class ConcreteFlyweight(Flyweight):
+    def operation(self, external_state):
+        return f"ConcreteFlyweight: {external_state}"
+
+# Фабрика легковагових об'єктів
+class FlyweightFactory:
+    _flyweights: Dict[str, Flyweight] = {}
+
+    def get_flyweight(self, key):
+        if key not in self._flyweights:
+            self._flyweights[key] = ConcreteFlyweight()
+        return self._flyweights[key]
+
+# Використання
+factory = FlyweightFactory()
+
+flyweight1 = factory.get_flyweight("shared_key")
+result1 = flyweight1.operation("External State 1")
+print(result1)
+
+flyweight2 = factory.get_flyweight("shared_key")
+result2 = flyweight2.operation("External State 2")
+print(result2)
